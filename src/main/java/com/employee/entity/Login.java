@@ -1,11 +1,19 @@
 package com.employee.entity;
 
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.ManyToOne;
+@Component
 @Entity
 public class Login {
 
@@ -23,6 +31,9 @@ public class Login {
 	private String password;
 	
 	
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JsonBackReference
+	private Role role;
    
 	private String rating;
 
@@ -34,18 +45,29 @@ public class Login {
 	
 	private String specification;
 
-	public Login(int id, String userName, String name, String password, String rating, String pinCode,
+
+
+	public Login(int id, String userName, String name, String password, Role role, String rating, String pinCode,
 			String contactNumber, String totalExp, String specification) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.name = name;
 		this.password = password;
+		this.role = role;
 		this.rating = rating;
 		this.pinCode = pinCode;
 		this.contactNumber = contactNumber;
 		this.totalExp = totalExp;
 		this.specification = specification;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public int getId() {

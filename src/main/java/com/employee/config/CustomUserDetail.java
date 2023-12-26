@@ -3,14 +3,23 @@ package com.employee.config;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.employee.entity.Login;
+
+
+
+
 
 @Component
-public class CustomeUserDetail implements UserDetails {
+public class CustomUserDetail implements UserDetails {
+	
+	@Autowired
+    private Login login;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 	 SimpleGrantedAuthority	 simpleGranted=  new SimpleGrantedAuthority(getPassword());
@@ -19,13 +28,17 @@ public class CustomeUserDetail implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return null;
+		
+		return login.getPassword();
+	
 	}
 
 	@Override
 	public String getUsername() {
-		return null;
+		return login.getUserName();
+	
 	}
+	
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -48,8 +61,21 @@ public class CustomeUserDetail implements UserDetails {
 	}
 
 
-	public CustomeUserDetail() {
+	public CustomUserDetail() {
 		super();
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
+	public CustomUserDetail(Login login) {
+		super();
+		this.login = login;
 	}
 
 }

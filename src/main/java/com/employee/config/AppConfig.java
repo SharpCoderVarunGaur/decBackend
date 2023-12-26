@@ -50,7 +50,7 @@ public class AppConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.
-		csrf(csrf->csrf.disable()).cors(c->c.disable()).authorizeHttpRequests(auth->auth.requestMatchers("/token/**").permitAll().anyRequest().permitAll())
+		csrf(csrf->csrf.disable()).cors(c->c.disable()).authorizeHttpRequests(auth->auth.requestMatchers("token").permitAll().requestMatchers("Sign-up/**").permitAll().requestMatchers("Role/**").permitAll().anyRequest().authenticated())
 		.sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.exceptionHandling(e->e.authenticationEntryPoint(entrypoint))
 		;

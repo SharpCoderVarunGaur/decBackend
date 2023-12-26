@@ -7,5 +7,5 @@ import com.employee.entity.Login;
 
 @Component
 public interface LoginRepo extends JpaRepository<Login,Integer> {
-
+   public Login findByUserName(String userName);
 }
